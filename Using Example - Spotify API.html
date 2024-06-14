@@ -339,7 +339,8 @@
 
                 if (token) {
                     /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-                    initAutoComplete(document.getElementById("myInput"), getData);
+                    initAutoComplete(document.getElementById("myInput"), { searchFunc: getData });
+
                     document.getElementById("search-div").style.display = "block";
                     document.getElementById("auth-div").style.display = "none";
                 }
