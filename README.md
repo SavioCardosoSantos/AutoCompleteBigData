@@ -84,9 +84,13 @@ To use the AutoCompleteBigData library in your project, follow these steps:
     ]
    ```
 
-4. **Init the input, passing your function:**
+4. **Init the input:**
    ```javascript
-   initAutoComplete(document.getElementById("myInput"), getData);
+   var settings = {
+      searchFunc: getData, //mandatory property
+      typingTimeout: 200 //non-mandatory property, default 300ms
+   }
+   initAutoComplete(document.getElementById("myInput"), settings);
    ```
 
 5. **Start typing!**
