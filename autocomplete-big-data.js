@@ -15,8 +15,15 @@
     ]
 */
 
-function initAutoComplete(inp, func) {
+function initAutoComplete(inp, settings) {
     debugger
+    if (!verifySettingsFormat(settings)) {
+        return;
+    }
+    //setting default timeout to 300ms
+    if (!settings.hasOwnProperty("typingTimeout")) {
+        settings.typingTimeout = 300;
+    }
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     let currentFocus;
@@ -30,7 +37,7 @@ function initAutoComplete(inp, func) {
             if (timeout) {
                 clearTimeout(timeout);
             }
-            timeout = await setTimeout(onChangeFunction, 300);
+            timeout = await setTimeout(onChangeFunction, settings.typingTimeout);
         } else {
             closeAllLists();
         }
@@ -60,7 +67,6 @@ function initAutoComplete(inp, func) {
                 if (x) x[currentFocus].click();
             }
         }
-
     });
 
     async function onChangeFunction() {
@@ -74,11 +80,41 @@ function initAutoComplete(inp, func) {
         /*append the DIV element as a child of the autocomplete container:*/
         inp.parentNode.appendChild(a);
         /*request the function passed on params, getting the data that will be displayed in select*/
-        let arr = await func(val);
+        let arr = await settings.searchFunc(val);
         /*verifying json format*/
         if (verifyJsonFormat(arr)) {
             /*for each item in the array...*/
             insertOptions(inp, arr, a);
+        }
+    }
+
+    function verifySettingsFormat(settings) {
+        if (settings) {
+            //verifying searchFunc property
+            if (settings.hasOwnProperty("searchFunc")) {
+                //verifying typeof searchFunc
+                if (typeof (settings.searchFunc) != "function") {
+                    console.error("The property searchFunc can't be typeof " + typeof (settings.searchFunc) + ", it must be a function.");
+                    return false;
+                }
+            } else {
+                console.error("The json settings is missing searchFunc property.");
+                return false;
+            }
+
+            //verifying typingTimeout property
+            if (settings.hasOwnProperty("typingTimeout")) {
+                //verifying typeof typingTimeout
+                if (typeof (settings.typingTimeout) != "int") {
+                    console.error("The property typingTimeout can't be typeof " + typeof (settings.typingTimeout) + ", it must be a int.");
+                    return false;
+                } else if (settings.typingTimeout <= 0 || settings.typingTimeout > 3000) {
+                    console.error("The property typingTimeout must to be between 1ms and 3000ms");
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 
