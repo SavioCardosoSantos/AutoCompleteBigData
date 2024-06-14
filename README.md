@@ -51,15 +51,15 @@ To use the AutoCompleteBigData library in your project, follow these steps:
      var database = [
           {
               "id": 323232,
-              "text": "Guilherme Silva"
+              "text": "John"
           },
           {
               "id": 43233,
-              "text": "Guilherme Pinheiro"
+              "text": "John Summit"
           },
           {
               "id": 543223,
-              "text": "Sávio Cardoso"
+              "text": "John Sullivan"
           }
       ];
    
