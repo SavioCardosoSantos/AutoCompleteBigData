@@ -36,15 +36,34 @@ You dont need to install, just reff the JS and CSS file on your HTML Head:
 
 To use the AutoCompleteBigData library in your project, follow these steps:
 
-1. **Write a input tag:**
+1. **Write a input tag inside a div with the class "autocomplete":**
    ```html
-   <input id="myInput" type="text" placeholder="Type Someting...">
+    <div class="autocomplete">
+      <input id="myInput" type="text" name="myArtist" placeholder="Artist">
+    </div>
    ```
 
 2. **Write your getData(value) async function:**
    ```javascript
    async function getData(value) { 
      // filter in your database as you see fit
+     // example
+     var database = [
+          {
+              "id": 323232,
+              "text": "Guilherme Silva"
+          },
+          {
+              "id": 43233,
+              "text": "Guilherme Pinheiro"
+          },
+          {
+              "id": 543223,
+              "text": "Sávio Cardoso"
+          }
+      ];
+   
+      return database.filter(x => x.text.toLowerCase().startsWith(value.toLowerCase()));
    }
    ```
    Note: Your function must return a JSON in this format:
