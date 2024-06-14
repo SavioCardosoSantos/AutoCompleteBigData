@@ -105,8 +105,8 @@ function initAutoComplete(inp, settings) {
             //verifying typingTimeout property
             if (settings.hasOwnProperty("typingTimeout")) {
                 //verifying typeof typingTimeout
-                if (typeof (settings.typingTimeout) != "int") {
-                    console.error("The property typingTimeout can't be typeof " + typeof (settings.typingTimeout) + ", it must be a int.");
+                if (typeof (settings.typingTimeout) != "number") {
+                    console.error("The property typingTimeout can't be typeof " + typeof (settings.typingTimeout) + ", it must be a number.");
                     return false;
                 } else if (settings.typingTimeout <= 0 || settings.typingTimeout > 3000) {
                     console.error("The property typingTimeout must to be between 1ms and 3000ms");
