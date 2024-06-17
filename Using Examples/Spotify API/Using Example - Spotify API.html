@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="https://developer.spotify.com/images/favicon.ico">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #121212;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 196px;
+            background-color: #000000;
+            padding: 24px;
+        }
+
+        #search-div {
+            padding: 5%;
+        }
+
+        #search-div h1 {
+            text-align: center;
+        }
+
+        #search-div p {
+            margin-top: 3%;
+            margin-bottom: 1%;
+        }
+
+        .sidebar .logo img {
+            width: 130px;
+        }
+
+        .sidebar .navigation ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .sidebar .navigation ul li {
+            padding: 10px 0px;
+        }
+
+        .sidebar .navigation ul li a {
+            color: #b3b3b3;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .sidebar .navigation ul li a:hover,
+        .sidebar .navigation ul li a:active,
+        .sidebar .navigation ul li a:focus {
+            color: #ffffff;
+        }
+
+        .sidebar .navigation ul li a:hover .fa,
+        .sidebar .navigation ul li a:active .fa,
+        .sidebar .navigation ul li a:focus .fa {
+            color: #b3b3b3;
+        }
+
+        .sidebar .navigation ul li .fa {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .sidebar .navigation ul li a:hover .fa:hover,
+        .sidebar .navigation ul li a:hover .fa:active,
+        .sidebar .navigation ul li a:hover .fa:focus {
+            color: #ffffff;
+        }
+
+        .sidebar .policies {
+            position: absolute;
+            bottom: 100px;
+        }
+
+        .sidebar .policies ul {
+            list-style: none;
+        }
+
+        .sidebar .policies ul li {
+            padding-bottom: 5px;
+        }
+
+        .sidebar .policies ul li a {
+            color: #b3b3b3;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 10px;
+        }
+
+        .sidebar .policies ul li a:hover,
+        .sidebar .policies ul li a:active,
+        .sidebar .policies ul li a:focus {
+            text-decoration: underline;
+        }
+
+        .main-container {
+            margin-left: 245px;
+            margin-bottom: 100px;
+        }
+
+        button {
+            background-color: #ffffff;
+            color: #000000;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 14px 30px;
+            border: 0px;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-left: 20px;
+            margin-top: 3%;
+        }
+
+        button:hover,
+        button:active,
+        button:focus {
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+
+        .spotify-playlists {
+            padding: 20px 40px;
+        }
+
+        .spotify-playlists h2 {
+            color: #ffffff;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .spotify-playlists .list {
+            display: flex;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        .spotify-playlists .list .item {
+            min-width: 140px;
+            width: 160px;
+            padding: 15px;
+            background-color: #181818;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all ease 0.4s;
+        }
+
+        .spotify-playlists .list .item:hover {
+            background-color: #252525;
+        }
+
+        .spotify-playlists .list .item img {
+            width: 100%;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .spotify-playlists .list .item .play {
+            position: relative;
+        }
+
+        .spotify-playlists .list .item .play .fa {
+            position: absolute;
+            right: 10px;
+            top: -60px;
+            padding: 18px;
+            background-color: #1db954;
+            border-radius: 100%;
+            opacity: 0;
+            transition: all ease 0.4s;
+        }
+
+        .spotify-playlists .list .item:hover .play .fa {
+            opacity: 1;
+            transform: translateY(-20px);
+        }
+
+        .spotify-playlists .list .item h4 {
+            color: #ffffff;
+            font-size: 14px;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .spotify-playlists .list .item p {
+            color: #989898;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 600;
+        }
+
+        .spotify-playlists hr {
+            margin: 70px 0px 0px;
+            border-color: #636363;
+        }
+
+        .preview {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to right, #ae2896, #509bf5);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .preview h6 {
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: 400;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .preview p {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .preview button {
+            background-color: #ffffff;
+            color: #000000;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 14px 30px;
+            border: 0px;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        #auth-div {
+            margin-top: 10%;
+            text-align: center;
+        }
+
+        .references-div {
+            margin-top: 20%;
+        }
+
+        li {
+            margin-top: 1%;
+            margin-left: 5%;
+        }
+
+        /* unvisited link */
+        a:link {
+            color: #ffffff;
+        }
+
+        /* visited link */
+        a:visited {
+            color: #ffffff;
+        }
+
+        /* mouse over link */
+        a:hover {
+            color: #ffffff;
+        }
+
+        /* selected link */
+        a:active {
+            color: #ffffff;
+        }
+    </style>
+
+    <!-- Autocomplete Imports -->
+    <script src="https://saviocardososantos.github.io/AutoCompleteBigData/autocomplete-big-data.js"></script>
+    <link rel="stylesheet" href="https://saviocardososantos.github.io/AutoCompleteBigData/autocomplete-big-data.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <a href="#">
+                <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png"
+                    alt="Logo" />
+            </a>
+        </div>
+    </div>
+    <div class="main-container">
+        <div id="auth-div">
+            <h1>Spotify Authorization</h1>
+            <button id="login-button">Log in with Spotify</button>
+        </div>
+        <div id="search-div" style="display: none;">
+            <h1>Autocomplete on Big Data Base</h1>
+            <p>Search for artists on Spotify:</p>
+            <div class="autocomplete" style="width:300px;">
+                <input id="myInput" type="text" name="myArtist" placeholder="Artist">
+            </div>
+        </div>
+        <footer>
+            <div class="references-div">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="https://any-api.com/spotify_com/spotify_com/docs/API_Description"
+                            target="_blank"><strong>Spotify
+                                API Documentation - by Any API</strong></a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const client_id = '2d9b0128579442f1a3d2f721a9f8de41';
+        const redirect_uri = window.location.href; // ROTAS CADASTRADAS: http://localhost:8000/Using%20Example%20-%20Spotify%20API.html E  https://saviocardososantos.github.io/AutoCompleteBigData/Using%20Example%20-%20Spotify%20API.html
+        const scopes = 'user-read-private user-read-email';
+        let token;
+
+        document.getElementById('login-button').addEventListener('click', () => {
+            debugger
+            const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${client_id}&scope=${encodeURIComponent(scopes)}&redirect_uri=${encodeURIComponent(redirect_uri)}`;
+            window.location.href = authUrl;
+        });
+
+        window.onload = () => {
+            debugger
+            if (window.location.hash) {
+                const hash = window.location.hash.substring(1);
+                const params = new URLSearchParams(hash);
+                token = params.get('access_token');
+
+                if (token) {
+                    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+                    initAutoComplete(document.getElementById("myInput"), { searchFunc: getData });
+
+                    document.getElementById("search-div").style.display = "block";
+                    document.getElementById("auth-div").style.display = "none";
+                }
+            }
+        };
+
+        async function getData(value) {
+            if (token) {
+                let jsonObj = await searchArtistsSpotify(value);
+                if (jsonObj.hasOwnProperty("error")) {
+                    document.getElementById("search-div").style.display = "none";
+                    document.getElementById("auth-div").style.display = "block";
+                    return
+                }
+                let artists = jsonObj.artists.items;
+                let artistsNameArr = [];
+
+                artists.forEach(artist => {
+                    if (artistsNameArr.filter(x => x.text == artist.name).length == 0) {
+                        artistsNameArr.push({ id: artist.id, text: artist.name });
+                    }
+                });
+
+                return artistsNameArr.filter(x => x.text.toLowerCase().startsWith(value.toLowerCase()));
+            } else {
+                alert.error("AUTENTIQUE-SE");
+            }
+        }
+
+        function searchArtistsSpotify(query) {
+            debugger
+            return new Promise((resolve, reject) => {
+                const myHeaders = new Headers();
+                myHeaders.append("Authorization", `Bearer ${token}`);
+
+                const requestOptions = {
+                    method: "GET",
+                    headers: myHeaders,
+                    redirect: "follow"
+                };
+
+                fetch(`https://api.spotify.com/v1/search?limit=10&offset=0&q=${query}&type=artist`, requestOptions)
+                    .then((response) => resolve(response.json()))
+                    .catch((error) => reject(error));
+            });
+        }
+    </script>
+
+</body>
+
+</html>
