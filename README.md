@@ -97,9 +97,7 @@ To use the AutoCompleteBigData library in your project, follow these steps:
 
 ## Example
 
-See this using example: https://saviocardososantos.github.io/AutoCompleteBigData/Using%20Example%20-%20Spotify%20API.html
-
-You can also access the HTML file named "Using Example - Spotify API", on this repository. 
+See using examples in: https://saviocardososantos.github.io/AutoCompleteBigData/Using%20Examples
 
 ## License
 
