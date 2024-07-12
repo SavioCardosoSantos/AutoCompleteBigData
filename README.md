@@ -1,6 +1,6 @@
 # AutoCompleteBigData
 
-Welcome to the **AutoCompleteBigData** repository! This project focuses on building an efficient and scalable auto-complete library designed to handle large datasets.
+This project focuses on building an efficient and scalable auto-complete library designed to handle large datasets.
 
 ## Table of Contents
 - [Introduction](#introduction)
